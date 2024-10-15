@@ -1,2 +1,1 @@
-# site
-Personal website of Marcel Schouwenaar
+# Marcel Schouwenaar — Research & Design
