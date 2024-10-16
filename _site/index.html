@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Marcel Schouwenaar Design</title>
+	
+	<link rel="stylesheet" type="text/css" href="/style/reset.css">
+	<link rel="stylesheet" type="text/css" href="/style/font.css">
+	<link rel="stylesheet" type="text/css" href="/style/style.css">
+
+	<script type="text/javascript">
+		
+		const docReady = e =>{
+			animateSiteTitle();
+
+		}
+		const animateSiteTitle = () =>{
+
+			let siteTitleEl = document.getElementById("site_title")
+			let siteTitleTxt = siteTitleEl.innerText;
+			// console.log(siteTitleTxt);
+			// siteTitleTxt = siteTitleTxt.replaceAll(" ","_");
+			// siteTitleEl.innerText = "";
+
+			// for (var i = siteTitleTxt.length - 1; i >= 0; i--) {
+			// 	if(siteTitleTxt[i] == "_") siteTitleTxt[i] = "+";
+			// 	siteTitleEl.innerText += siteTitleTxt[i];
+			// }
+
+		}
+		const addCharacter = (c, p) => {
+			const randomDelay = Math.round(Math.random() * 1000);
+			setTimeout((args) => {
+				
+			}, randomDelay)
+		}
+
+		document.addEventListener("DOMContentLoaded",docReady);
+
+	</script>
+	<script type="text/paperscript" src="/js/meta.js" canvas="heroCanvas"></script>
+
+</head>
+<body>
+	<nav>
+		<div id="logo">
+			M—Sch.
+		</div>
+		<ul>
+			<li>
+				<a href="#about" id="nav-about">About</a>
+			</li>
+			<li>
+				<a href="#resume" id="nav-resume">Resume</a>
+			</li>
+			<li>
+				<a href="#contact" id="nav-contact">Contact</a>
+			</li>
+	</ul></nav> 
+	<header>
+		<p class="tiny pill">Forever under construction</p>
+		<h1 id="site_title">Research & Design for<br>Equitable Transitions</h1>
+	</header>
+	<div id="hero">
+		<canvas id="heroCanvas" resize=""></canvas>
+	</div>
+	<main>
+		<section id="about">
+			<p class="tiny pill pink">About</p>
+			<h2 id="h1-hello-world-h1">&lt;h1&gt;Hello World&lt;/h1&gt;
+</h2>
+			<p>
+				
+			</p>
+		</section>
+		<section id="resume">
+			<p class="tiny pill pink">Resume</p>
+			<h2 id="asdlf-j">asdlf;j</h2>
+			<p>
+				The Incredible Machine
+			</p>
+			<p>
+				Bench3D
+			</p>
+			<p>
+				Proxemy
+			</p>
+			<p>
+				Just Things Foundation
+			</p>
+			<p>
+				ThingsCon (NL)
+			</p>
+			<p>
+				ClickNL
+			</p>
+			<p>
+				Creative Industries Fund
+			</p>
+		
+		</section>
+		<section id="contact">
+			<p class="tiny pill pink">Contact</p>
+			<h2 id="contact-2">Contact</h2>
+			<p>
+				xxx
+			</p>
+			
+		</section>
+	</main>
+	<footer>
+		Hello!
+	</footer>
+
+
+</body>
+</html>

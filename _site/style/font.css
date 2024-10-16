@@ -1,0 +1,64 @@
+/*
+
+PPRadioGrotesk-Bold.woff
+PPRadioGrotesk-Bold.woff2
+PPRadioGrotesk-BoldItalic.woff
+PPRadioGrotesk-BoldItalic.woff2
+
+PPRadioGrotesk-Light.woff
+PPRadioGrotesk-Light.woff2
+PPRadioGrotesk-LightItalic.woff
+PPRadioGrotesk-LightItalic.woff2
+
+PPRadioGrotesk-Regular.woff
+PPRadioGrotesk-Regular.woff2
+PPRadioGrotesk-RegularItalic.woff
+PPRadioGrotesk-RegularItalic.woff2
+
+*/
+
+@font-face{
+	font-family: "PPRadioGrotesk";
+	font-weight: normal;
+	src:  url('../fonts/PPRadioGrotesk-Regular.woff2') format('woff2'),
+		  url('../fonts/PPRadioGrotesk-Regular.woff') format('woff');
+}
+@font-face{
+	font-family: "PPRadioGrotesk";
+	font-weight: bold;
+	src:  url('../fonts/PPRadioGrotesk-Bold.woff2') format('woff2'),
+		  url('../fonts/PPRadioGrotesk-Bold.woff') format('woff');
+}
+
+@font-face{
+	font-family: "PPRadioGrotesk";
+	font-weight: light;
+	src:  url('../fonts/PPRadioGrotesk-Light.woff2') format('woff2'),
+		  url('../fonts/PPRadioGrotesk-Light.woff') format('woff');
+}
+
+@font-face{
+	font-family: "PPRadioGrotesk";
+	font-style: italic;
+	font-weight: normal;
+	src:  url('../fonts/PPRadioGrotesk-RegularItalic.woff2') format('woff2'),
+		  url('../fonts/PPRadioGrotesk-RegularItalic.woff') format('woff');
+}
+@font-face{
+	font-family: "PPRadioGrotesk";
+	font-style: italic;
+	font-weight: bold;
+	src:  url('../fonts/PPRadioGrotesk-BoldItalic.woff2') format('woff2'),
+		  url('../fonts/PPRadioGrotesk-BoldItalic.woff') format('woff');
+}
+
+@font-face{
+	font-family: "PPRadioGrotesk";
+	font-style: italic;
+	font-weight: light;
+	src:  url('../fonts/PPRadioGrotesk-LightItalic.woff2') format('woff2'),
+		  url('../fonts/PPRadioGrotesk-LightItalic.woff') format('woff');
+}
+
+
+
