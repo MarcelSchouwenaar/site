@@ -2,7 +2,9 @@ import { IdAttributePlugin, InputPathToUrlTransformPlugin, HtmlBasePlugin } from
 // import { feedPlugin } from "@11ty/eleventy-plugin-rss";
 // import pluginSyntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 // import pluginNavigation from "@11ty/eleventy-navigation";
-import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
+// import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
+
+
 
 // import pluginFilters from "./_config/filters.js";
 
@@ -14,44 +16,11 @@ export default async function(eleventyConfig) {
 	eleventyConfig.addPassthroughCopy({
 			"./static/": "/"
 		})
-		.addPassthroughCopy("./content/feed/pretty-atom-feed.xsl");
-
-	// Image optimization: https://www.11ty.dev/docs/plugins/image/#eleventy-transform
-	eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
-		// File extensions to process in _site folder
-		extensions: "html",
-
-		// Output formats for each image.
-		formats: ["avif", "webp", "auto"],
-
-		// widths: ["auto"],
-
-		defaultAttributes: {
-			// e.g. <img loading decoding> assigned on the HTML tag will override these values.
-			loading: "lazy",
-			decoding: "async",
-		}
-	});
-
-	// Filters
-
-	eleventyConfig.addPlugin(IdAttributePlugin, {
-		// by default we use Eleventy’s built-in `slugify` filter:
-		// slugify: eleventyConfig.getFilter("slugify"),
-		// selector: "h1,h2,h3,h4,h5,h6", // default
-	});
 
 	eleventyConfig.addShortcode("currentBuildDate", () => {
 		return (new Date()).toISOString();
 	});
 
-	// Features to make your build faster (when you need them)
-
-	// If your passthrough copy gets heavy and cumbersome, add this line
-	// to emulate the file copy on the dev server. Learn more:
-	// https://www.11ty.dev/docs/copy/#emulate-passthrough-copy-during-serve
-
-	// eleventyConfig.setServerPassthroughCopyBehavior("passthrough");
 };
 
 export const config = {

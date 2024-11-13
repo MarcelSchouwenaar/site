@@ -1,8 +1,8 @@
 ---
-layout: layouts/index.html
+layout: layouts/content.html
 ---
 
-# Hello World
+# Contact
 
 This is a piece of text
 - a list item

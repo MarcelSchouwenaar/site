@@ -15,7 +15,42 @@ PPRadioGrotesk-Regular.woff2
 PPRadioGrotesk-RegularItalic.woff
 PPRadioGrotesk-RegularItalic.woff2
 
+
+
+PPMondwest-Bold.woff
+PPMondwest-Bold.woff2
+PPMondwest-Regular.woff
+PPMondwest-Regular.woff2
+PPNeueBit-Bold.woff
+PPNeueBit-Bold.woff2
+PPNeueBit-Regular.woff
+PPNeueBit-Regular.woff2
+
 */
+@font-face{
+	font-family: "PPNeueBit";
+	font-weight: normal;
+	src:  url('../fonts/PPNeueBit-Regular.woff2') format('woff2'),
+		  url('../fonts/PPNeueBit-Regular.woff') format('woff');
+}
+@font-face{
+	font-family: "PPNeueBit";
+	font-weight: bold;
+	src:  url('../fonts/PPNeueBit-Bold.woff2') format('woff2'),
+		  url('../fonts/PPNeueBit-Bold.woff') format('woff');
+}
+@font-face{
+	font-family: "PPMondwest";
+	font-weight: normal;
+	src:  url('../fonts/PPMondwest-Regular.woff2') format('woff2'),
+		  url('../fonts/PPMondwest-Regular.woff') format('woff');
+}
+@font-face{
+	font-family: "PPMondwest";
+	font-weight: bold;
+	src:  url('../fonts/PPMondwest-Bold.woff2') format('woff2'),
+		  url('../fonts/PPMondwest-Bold.woff') format('woff');
+}
 
 @font-face{
 	font-family: "PPRadioGrotesk";

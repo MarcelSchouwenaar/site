@@ -1,0 +1,118 @@
+
+<style>
+    #heroContainer{
+        height: 100vh;
+        width: 100vw;
+        position: fixed;
+        left: 0;
+        top: 0;
+        background-color: var(--c-darkgreen);
+        padding: 20px;
+        transition: background-color 2s;
+        transition-delay: .5s;
+    }
+    #svglogo{
+        width: 100%;
+        height: 100%;
+        image-rendering: pixelated;
+    }
+    .monogrampath{
+       stroke-dasharray: 200;
+       stroke-dashoffset: 0;
+       animation: dash 120s linear forwards;
+       animation-iteration-count: infinite;
+       stroke:  var(--c-neongreen);
+       transition: stroke 1s;
+
+    }
+    @keyframes dash {
+        0% {
+            stroke-dashoffset: 2000;
+        }
+        50% {
+            stroke-dashoffset: 1000;
+        }
+         100% {
+            stroke-dashoffset: 0;
+        }
+    }
+
+
+
+</style>
+<script type="text/javascript">
+
+    /* 
+
+    colors
+
+            --c-purple: #7C5CE1;
+            --c-pink: #EFBEEB;
+            --c-coral: #E8555F;
+            --c-yellow: #FEFB54;
+            --c-neongreen: #C3FB50;
+            --c-green: #6ACD4F;
+            --c-darkgreen: #41754D;
+            --c-orange: #F19737;
+            --c-cyan: #4FADF5;
+            --c-lilac: #7697E6;
+            --c-brown: #AA8052;
+            --c-white: #FBFBFB;
+            --c-slate: #B1B1B1;
+            --c-charcoal: #29282E;
+            --c-black: #141319;
+
+    */
+
+    const themes = [
+            ["var(--c-darkgreen)", "var(--c-green)"],
+            ["var(--c-orange)", "var(--c-coral)"],
+            ["var(--c-lilac)", "var(--c-cyan)"],
+            ["var(--c-purple)", "var(--c-yellow)"]
+        ]
+    
+    let currentTheme = 0;
+
+    const switchTheme = () => {
+        currentTheme = (currentTheme + 1)%themes.length;
+        
+        const heroContainer = document.getElementById("heroContainer");
+        heroContainer.style.setProperty("background-color", themes[currentTheme][0]);
+
+        const monogramPath = document.querySelector(".monogrampath");
+        monogramPath.style.stroke = themes[currentTheme][1];
+        // monogramPath.setAttribute("stroke", themes[currentTheme][1]);
+    }
+
+    const logoReady = e =>{
+        const heroContainer = document.getElementById("heroContainer");
+        heroContainer.addEventListener("click",switchTheme);
+    }
+
+    document.addEventListener("DOMContentLoaded",logoReady);
+
+
+
+
+</script>
+<div id="heroContainer">
+    <?xml version="1.0" encoding="UTF-8"?>
+    <svg id="svglogo"  viewBox="0 0 280 160" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>Marcel Schouwenaar Monogram</title>
+
+
+        <g id="monogram" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+            <path  shape-rendering="crispEdges" class="monogrampath" d="M20,100 L20,60 C20,48.954305 28.954305,40 40,40 C51.045695,40 60,48.954305 60,60 L60,100 C60,111.045695 68.954305,120 80,120 C91.045695,120 100,111.045695 100,100 L100,40 C100,28.954305 108.954305,20 120,20 C131.045695,20 140,28.954305 140,40 L140,80 C140,113.137085 166.862915,140 200,140 L240,140 C251.045695,140 260,131.045695 260,120 C260,108.954305 251.045695,100 240,100 L200,100 C188.954305,100 180,91.045695 180,80 C180,68.954305 188.954305,60 200,60 L240,60 L240,60" id="Path-6-Copy-7" stroke="#FBFBFB" stroke-width="38"></path>
+        </g>
+    </svg>
+
+</div>
+
+
+
+
+
+
+
+
+
