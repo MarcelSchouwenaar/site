@@ -31,22 +31,23 @@
 	</script>
 
 </head>
-<body class='home'>
+<body>
 	{% include 'components/nav.html' %}
 	{% include 'components/logo.html' %}
-	<header>
-		<h1>
-			<strong id="header">{{ title }}</strong> 
-			<span id="subheader">{{ subheader }}</span>
-		</h1>
-		<div>
-			<p class="">{{ content | safe }}</p>
-		</div>
-		
-	</header>
-	<main>
-		<iframe name="mainframe" id="mainframe" src="./empty"></iframe>
-	</main>
-
+	<div class='home'>
+		<header>
+			<h1>
+				<strong id="header">{{ title }}</strong> 
+				<span id="subheader">{{ subheader }}</span>
+			</h1>
+			<div>
+				<p class="">{{ content | safe }}</p>
+			</div>
+			
+		</header>
+		<main>
+			<iframe name="mainframe" id="mainframe" src="./empty"></iframe>
+		</main>
+	</div>
 </body>
 </html>

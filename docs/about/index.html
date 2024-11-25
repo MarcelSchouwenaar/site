@@ -6,10 +6,42 @@
 	<link rel="stylesheet" type="text/css" href="../style/reset.css">
 	<link rel="stylesheet" type="text/css" href="../style/font.css">
 	<link rel="stylesheet" type="text/css" href="../style/style.css">
+	<script>
+
+		function decryptEmail(encoded) {
+
+			var address = atob(encoded);
+			window.location.href = "mailto:" + address;
+
+		}
+
+	</script>
+	<style>
+		body{
+			padding: 0;
+			margin: 0;
+			height: 100vh;
+		}
+		p, h1, h2, h3{
+			padding: 0;
+			margin: 0;
+		}
+
+		#content{
+			padding: var(--body-padding);
+			min-height: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			gap: 20px;
+		}
 	
+	</style>
 </head>
 <body>
-	<p>I am an independent designer, researcher, and educator, based in Rotterdam (NL). I am equally fascinated by the potential of technology, as I fear a world wherein</p>
+	<div id="content">
+		<h1>I help organizations figure out where things are going and how they can respond to change. I craft aspirations paths forward by combining creativity, enquiry, and invention.</h1>
 
+	</div>
 </body>
 </html>

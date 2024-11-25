@@ -1,12 +1,4 @@
 ---
 layout: layouts/content.html
 ---
-
-# Contact
-
-This is a piece of text
-- a list item
-- another item
-- maybe even some more content
-
-<span>Hello, this is a span</span>
+Want to collaborate? Have a crazy idea? Find me on <a href="https://www.linkedin.com/in/marcelschouwenaar/">LinkedIn</a>, or <a href="javascript:decryptEmail('aW5mb0BtYXJjZWxzY2hvdXdlbmFhci5ubA==');">send me an email</a>.

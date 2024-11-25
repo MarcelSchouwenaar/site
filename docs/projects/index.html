@@ -6,17 +6,42 @@
 	<link rel="stylesheet" type="text/css" href="../style/reset.css">
 	<link rel="stylesheet" type="text/css" href="../style/font.css">
 	<link rel="stylesheet" type="text/css" href="../style/style.css">
+	<script>
+
+		function decryptEmail(encoded) {
+
+			var address = atob(encoded);
+			window.location.href = "mailto:" + address;
+
+		}
+
+	</script>
+	<style>
+		body{
+			padding: 0;
+			margin: 0;
+			height: 100vh;
+		}
+		p, h1, h2, h3{
+			padding: 0;
+			margin: 0;
+		}
+
+		#content{
+			padding: var(--body-padding);
+			min-height: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			gap: 20px;
+		}
 	
+	</style>
 </head>
 <body>
-	<h1>Projects</h1>
-<p>This is a piece of text</p>
-<ul>
-<li>a list item</li>
-<li>another item</li>
-<li>maybe even some more content</li>
-</ul>
-<p><span>Hello, this is a span</span></p>
+	<div id="content">
+		<p>Projects soon.</p>
 
+	</div>
 </body>
 </html>
