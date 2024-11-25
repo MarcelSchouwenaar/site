@@ -42,14 +42,7 @@
     return _num;
     
   }
-   const setInitialPos = () => {
 
-    let xPos = localStorage.getItem("xPos") || 200;
-    let yPos = localStorage.getItem("yPos") || 400;
-     
-    document.documentElement.style.setProperty('--yPos', yPos + "px");
-    document.documentElement.style.setProperty('--xPos', xPos + "px");
-  } 
   
   window.addEventListener("load", e => {
     
@@ -57,17 +50,67 @@
     const navHandle = document.getElementById("navigationHandle");
     
     let pos = [0,0,0,0];
-    
-   
-    const setPosNavAfterEvent = e => {
+
+    const checkScreensize = e => {
+
+      let screenSize = "desktop";
+
+      const w = window.innerWidth;
+     
+      const body = document.querySelector("body");
+            body.classList.remove("tablet", "mobile");
       
+      if(w <= 600){
+        screenSize = "mobile";
+        body.classList.add("mobile");
+        nav.style.left = "";
+        nav.style.top = "";
+        document.onmouseup = null;
+        document.onmousemove = null;
+        navHandle.onmousedown = null;
+      }else if(w <= 1200){
+        nav.style.left = "";
+        nav.style.top = "";
+        screenSize = "tablet";
+        body.classList.add("tablet");
+        document.onmouseup = null;
+        document.onmousemove = null; 
+        navHandle.onmousedown = null;
+      }  else {
+        navHandle.onmousedown = startDragNav;
+      }
+      return screenSize;
+    }
+    
+   const setInitialPos = () => {
+
+    let xPos = 0;
+    let yPos = 0;
+    let screenSize = checkScreensize();
+
+    if(screenSize == "desktop"){
+      xPos = localStorage.getItem("xPos") || 200;
+      yPos = localStorage.getItem("yPos") || 400;
+    } else {
+      return;
+    }
+     
+    document.documentElement.style.setProperty('--yPos', yPos + "px");
+    document.documentElement.style.setProperty('--xPos', xPos + "px");
+    
+  } 
+    
+    const setPosNavAfterEvent = e => {
       let xPos, yPos = 0;
-      console.log(e.type);
+
+      let screenSize = checkScreensize();
+
+      if(screenSize != "desktop") return;
+
       if(e.type == "resize"){
         xPos = nav.offsetLeft;
         yPos = nav.offsetTop;
-      }
-      if(e.type == "storage"){
+      } else if(e.type == "storage"){
         xPos = localStorage.getItem("xPos") || 0;
         yPos = localStorage.getItem("yPos") || 0;
       }
@@ -76,7 +119,7 @@
     }
 
     const setPosNav = ( xPos, yPos) => {
-             
+
       let dim = [nav.offsetWidth, nav.offsetHeight, window.innerWidth, window.innerHeight];
 
       xPos = constrainNumber(xPos, 0, dim[2] - dim[0])
@@ -97,11 +140,13 @@
       
       e.preventDefault();
 
-      
-      pos[0] = pos[2] - e.clientX;
-      pos[1] = pos[3] - e.clientY;
-      pos[2] = e.clientX;
-      pos[3] = e.clientY;
+      let dx = e.clientX;
+      let dy = e.clientY;
+
+      pos[0] = pos[2] - dx;
+      pos[1] = pos[3] - dy;
+      pos[2] = dx;
+      pos[3] = dy;
       
       let newX = nav.offsetLeft - pos[0];
       let newY = nav.offsetTop - pos[1];
@@ -118,18 +163,22 @@
       document.onmousemove = dragNav; 
       document.onmouseup   = stopDragNav;
 
+
     }
     const stopDragNav = e => {
       e.preventDefault();
       document.onmouseup = null;
       document.onmousemove = null;  
+
     }
+
+
+    window.addEventListener('resize', setPosNavAfterEvent);
+    window.addEventListener('resize', checkScreensize);
+    window.addEventListener('storage',setPosNavAfterEvent);
 
     setInitialPos();
     navHandle.onmousedown = startDragNav;
-
-    window.addEventListener('resize', setPosNavAfterEvent);
-    window.addEventListener('storage',setPosNavAfterEvent);
 
     const mainNavItemsGroup = document.querySelector("#mainNavItems");
     const navLinks = mainNavItemsGroup.querySelectorAll("a");
@@ -139,7 +188,6 @@
 
         let link = e.target.href || e.target.closest('a').href;
         let newHeader = e.target.dataset.pagetitle || e.target.closest('a').dataset.pagetitle;
-
 
         headerRandomizer.setNewString(newHeader);
 
@@ -169,15 +217,13 @@
     letter-spacing: 1px;
     image-rendering: pixelated;
     text-transform: uppercase;
-/*    font-smooth: never;*/
-/*    -webkit-font-smoothing : none;*/
     -webkit-user-select: none;
    
     position: fixed;
     left: var(--xPos);
     top: var(--yPos);
     padding: 4px;
-    min-width: 220px;
+    width: 250px;
 
     
     background-color: var(--c-charcoal);
@@ -196,7 +242,6 @@
     transform: translateY(-2px);
     box-shadow: 0px 20px 50px rgba(0,0,0,.2),
                 inset 1px 1px 0px var(--c-poppy);
-
   }
 
   #navigationHandle{
@@ -234,9 +279,6 @@
     border-radius: 4px;
     overflow: hidden;
     background-color: var(--c-poppy) ;
-  }
-  #mainNavItems{
-    
   }
   #navigation a {
     display: flex;
@@ -330,6 +372,119 @@
     gap: 2px;
    }
 
+@media only screen and (min-width: 900px) and (max-width: 1200px) {
+  #navigation{
+    left: 20px;
+    top: 20px;
+    display: flex;
+    flex-direction: row;
+    width: calc(100vw - 40px);
+    height: 80px;
+  }
+  #navigation:hover{
+    transform: none;
+    box-shadow: inherit;
+  }
+  #navigationHandle{
+    display: none;
+  }
+  #navigationLogo{
+    width: 200px;
+    flex-direction: row-reverse;
+  }
+  #mainNavItems{
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+    background-color: var(--c-charcoal);
+  }
+  #mainNavItems a{
+    flex-grow: 1;
+    border-bottom: none;
+    border-right: 1px solid var(--c-black);
+    box-shadow: inset 1px 0px 0px var(--c-poppy);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+  #navigationLogo img{
+    height: 30px;
+    width: auto;
+  }
+  #secondaryNav div{
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #secondaryNav .buttonLabel{
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  #navigation{
+    left: 20px;
+    top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: calc(100vw - 40px);
+    height: 52px;
+  }
+  #navigation:hover{
+    transform: none;
+    box-shadow: inherit;
+  }
+  #navigationHandle{
+    display: none;
+  }
+  #navigationLogo{
+    height: 40px;
+    flex-direction: row-reverse;
+    justify-content: center;
+  }
+  #navigationLogo img{
+    height: 20px;
+    width: auto;
+  }
+  #navigationLogo span{
+    display: none;
+  }
+  #mainNavItems{
+    height: 40px;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+    background-color: var(--c-charcoal);
+  }
+  #mainNavItems a{
+    flex-grow: 1;
+    border-bottom: none;
+    border-right: 1px solid var(--c-black);
+    box-shadow: inset 1px 0px 0px var(--c-poppy);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+ 
+  #secondaryNav{
+    height: 42px;
+  }
+  #secondaryNav div{
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .buttonLabel{
+    display: none;
+  }
+}
+
+
 </style>
 
 <nav id="navigation">
@@ -337,20 +492,34 @@
     <hr><hr>
   </div>
  <div id="navigationLogo" class="insetFrame">
-    <span>Marcel<br>Schouwenaar<br>Design</span>
+    <span>Marcel Schouwenaar Design</span>
     <img src="images/ms.svg">
-
   </div>
   <div id="mainNavItems" class="insetFrame">
-    <a data-pagetitle="Marcel Schouwenaar" href="./empty" target="mainframe"><span class="navItemIcon"><img src="images/i-home.svg"></span>Home</a>
-    <a data-pagetitle="About" href="./about" target="mainframe"><span class="navItemIcon"><img src="images/i-about.svg"></span>About</a>
-    <a data-pagetitle="Projects" href="./projects" target="mainframe"><span class="navItemIcon"><img src="images/i-projects.svg"></span>Projects</a>
-    <a data-pagetitle="Writing" href="./writing" target="mainframe"><span class="navItemIcon"><img src="images/i-writing.svg"></span>Writing</a>
-    <a data-pagetitle="Contact" href="./contact" target="mainframe"><span class="navItemIcon"><img src="images/i-contact.svg"></span>Contact</a>
+    <a data-pagetitle="Marcel Schouwenaar" href="./empty" target="mainframe">
+      <span class="navItemIcon"><img src="images/i-home.svg"></span>
+      <span class="buttonLabel">Home</span>
+    </a>
+    <a data-pagetitle="About" href="./about" target="mainframe">
+      <span class="navItemIcon"><img src="images/i-about.svg"></span>
+      <span class="buttonLabel">About</span>
+    </a>
+    <a data-pagetitle="Projects" href="./projects" target="mainframe">
+      <span class="navItemIcon"><img src="images/i-projects.svg"></span>
+      <span class="buttonLabel">Projects</span>
+    </a>
+    <a data-pagetitle="Writing" href="./writing" target="mainframe">
+      <span class="navItemIcon"><img src="images/i-writing.svg"></span>
+      <span class="buttonLabel">Writing</span>
+    </a>
+    <a data-pagetitle="Contact" href="./contact" target="mainframe">
+      <span class="navItemIcon"><img src="images/i-contact.svg"></span>
+      <span class="buttonLabel">Contact</span>
+    </a>
   </div>
   <div id="secondaryNav" class="insetFrame">
-        <span class="secondaryNavIcon buttonFrame"><img src="images/i-linkedin.svg"> connect</span>
-        <span class="secondaryNavIcon buttonFrame"><img src="images/i-coffee.svg"> coffee</span>
+        <div class="secondaryNavIcon buttonFrame"><img src="images/i-linkedin.svg"><span class="buttonLabel"> connect</span></div>
+        <div class="secondaryNavIcon buttonFrame"><img src="images/i-coffee.svg"><span class="buttonLabel"> coffee</span></div>
   </div>
  
  
@@ -446,6 +615,10 @@
 
         const monogramPath = document.querySelector(".monogrampath");
         monogramPath.style.stroke = theme[1];
+
+        const body = document.querySelector("body");
+        body.style.setProperty("background-color", theme[0]);
+        body.style.backgroundColor = theme[0];
 
     }
 

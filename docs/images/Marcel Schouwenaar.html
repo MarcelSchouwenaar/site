@@ -1,4 +1,38 @@
-<script type="text/javascript">
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Marcel Schouwenaar</title>
+	
+	<link rel="stylesheet" type="text/css" href="style/reset.css">
+	<link rel="stylesheet" type="text/css" href="style/font.css">
+	<link rel="stylesheet" type="text/css" href="style/style.css">
+
+	<script type="text/javascript" src="js/rndm.js"></script>
+
+	<script type="text/javascript">
+
+		let defaultSubtitle;
+		let subheaderRandomizer;
+		let headerRandomizer;
+
+		const docReady = e =>{
+			let subheader = document.querySelector("#subheader");
+			let header = document.querySelector("#header");
+
+			defaultSubtitle = subheader.innerHTML;
+			subheaderRandomizer = new Randomizer(subheader, 20);
+			headerRandomizer = new Randomizer(header, 4);
+		}
+		
+		document.addEventListener("DOMContentLoaded",docReady);
+
+	</script>
+
+<script type="module" integrity="sha512-wrkvgnx5QU7sHMYYeiHDdgszjINLzfbt630xb2Xafqa4ecC0eTjvrzqUQ7+2HApa1AVvG+DKxhRbwJ0NmFaA4Q==" src="/.11ty/reload-client.js"></script></head>
+<body>
+	<script type="text/javascript">
   
   const constrainNumber = (num, min , max) =>  {
     
@@ -395,10 +429,8 @@
     top: 20px;
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
     width: calc(100vw - 40px);
-    height: 52px;
+    height: 80px;
   }
   #navigation:hover{
     transform: none;
@@ -408,19 +440,14 @@
     display: none;
   }
   #navigationLogo{
-    height: 40px;
+    width: 100px;
     flex-direction: row-reverse;
     justify-content: center;
-  }
-  #navigationLogo img{
-    height: 20px;
-    width: auto;
   }
   #navigationLogo span{
     display: none;
   }
   #mainNavItems{
-    height: 40px;
     display: flex;
     flex-grow: 1;
     flex-direction: row;
@@ -434,10 +461,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
   }
- 
-  #secondaryNav{
-    height: 42px;
+  #navigationLogo img{
+    height: 30px;
+    width: auto;
   }
   #secondaryNav div{
     width: 50px;
@@ -459,36 +487,179 @@
   </div>
  <div id="navigationLogo" class="insetFrame">
     <span>Marcel Schouwenaar Design</span>
-    <img src="{{ './images/ms.svg' | url }}">
+    <img src="images/ms.svg">
   </div>
   <div id="mainNavItems" class="insetFrame">
     <a data-pagetitle="Marcel Schouwenaar" href="./empty" target="mainframe">
-      <span class="navItemIcon"><img src="{{ './images/i-home.svg' | url }}"></span>
+      <span class="navItemIcon"><img src="images/i-home.svg"></span>
       <span class="buttonLabel">Home</span>
     </a>
     <a data-pagetitle="About" href="./about" target="mainframe">
-      <span class="navItemIcon"><img src="{{ './images/i-about.svg' | url }}"></span>
+      <span class="navItemIcon"><img src="images/i-about.svg"></span>
       <span class="buttonLabel">About</span>
     </a>
     <a data-pagetitle="Projects" href="./projects" target="mainframe">
-      <span class="navItemIcon"><img src="{{ './images/i-projects.svg' | url }}"></span>
+      <span class="navItemIcon"><img src="images/i-projects.svg"></span>
       <span class="buttonLabel">Projects</span>
     </a>
     <a data-pagetitle="Writing" href="./writing" target="mainframe">
-      <span class="navItemIcon"><img src="{{ './images/i-writing.svg' | url }}"></span>
+      <span class="navItemIcon"><img src="images/i-writing.svg"></span>
       <span class="buttonLabel">Writing</span>
     </a>
     <a data-pagetitle="Contact" href="./contact" target="mainframe">
-      <span class="navItemIcon"><img src="{{ './images/i-contact.svg' | url }}"></span>
+      <span class="navItemIcon"><img src="images/i-contact.svg"></span>
       <span class="buttonLabel">Contact</span>
     </a>
   </div>
   <div id="secondaryNav" class="insetFrame">
-        <div class="secondaryNavIcon buttonFrame"><img src="{{ './images/i-linkedin.svg' | url }}"><span class="buttonLabel"> connect</span></div>
-        <div class="secondaryNavIcon buttonFrame"><img src="{{ './images/i-coffee.svg' | url }}"><span class="buttonLabel"> coffee</span></div>
+        <div class="secondaryNavIcon buttonFrame"><img src="images/i-linkedin.svg"><span class="buttonLabel"> connect</span></div>
+        <div class="secondaryNavIcon buttonFrame"><img src="images/i-coffee.svg"><span class="buttonLabel"> coffee</span></div>
   </div>
  
  
   
 
 </nav>
+	
+<style>
+    #heroContainer{
+        height: 100vh;
+        width: 100vw;
+        position: fixed;
+        left: 0;
+        top: 0;
+        background-color: var(--c-darkgreen);
+        padding: 20px;
+        transition: background-color 2s;
+        transition-delay: .5s;
+        font-smooth: never;
+        -webkit-font-smoothing : none;
+        image-rendering: pixelated;
+
+    }
+    #svglogo{
+        width: 100%;
+        height: 100%;
+    }
+    .monogrampath{
+       stroke-dasharray: 200;
+       stroke-dashoffset: 0;
+       animation: dash 120s linear forwards;
+       animation-iteration-count: infinite;
+       stroke:  var(--c-neongreen);
+       transition: stroke 1s;
+
+    }
+    @keyframes dash {
+        0% {
+            stroke-dashoffset: 2000;
+        }
+        50% {
+            stroke-dashoffset: 1000;
+        }
+         100% {
+            stroke-dashoffset: 0;
+        }
+    }
+
+
+
+</style>
+<script type="text/javascript">
+
+    /* 
+
+    colors
+
+            --c-purple: #7C5CE1;
+            --c-pink: #EFBEEB;
+            --c-coral: #E8555F;
+            --c-yellow: #FEFB54;
+            --c-neongreen: #C3FB50;
+            --c-green: #6ACD4F;
+            --c-darkgreen: #41754D;
+            --c-orange: #F19737;
+            --c-cyan: #4FADF5;
+            --c-lilac: #7697E6;
+            --c-brown: #AA8052;
+            --c-white: #FBFBFB;
+            --c-slate: #B1B1B1;
+            --c-charcoal: #29282E;
+            --c-black: #141319;
+
+
+    */
+
+    const themes = {
+            "empty": ["var(--c-darkgreen)", "var(--c-green)"],
+            "about": ["var(--c-orange)", "var(--c-coral)"],
+            "projects": ["var(--c-poppy)", "var(--c-black)"],
+            "writing": ["var(--c-white)", "var(--c-slate)"],
+            "contact": ["var(--c-purple)", "var(--c-pink)"]
+        }
+    
+    let currentTheme = 0;
+
+    const switchTheme = (page) => {
+
+        let theme = themes[page] || themes[0];
+
+        const heroContainer = document.getElementById("heroContainer");
+        heroContainer.style.setProperty("background-color", theme[0]);
+
+        const monogramPath = document.querySelector(".monogrampath");
+        monogramPath.style.stroke = theme[1];
+
+    }
+
+    const logoReady = e =>{
+        const heroContainer = document.getElementById("heroContainer");
+        heroContainer.addEventListener("click",switchTheme);
+    }
+
+
+    document.addEventListener("DOMContentLoaded",logoReady);
+
+
+
+
+</script>
+
+
+<div id="heroContainer">
+    <svg id="svglogo"  viewBox="0 0 280 160" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>Marcel Schouwenaar Monogram</title>
+        <g filter="dither" id="monogram" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+            <path  shape-rendering="crispEdges" class="monogrampath" d="M20,100 L20,60 C20,48.954305 28.954305,40 40,40 C51.045695,40 60,48.954305 60,60 L60,100 C60,111.045695 68.954305,120 80,120 C91.045695,120 100,111.045695 100,100 L100,40 C100,28.954305 108.954305,20 120,20 C131.045695,20 140,28.954305 140,40 L140,80 C140,113.137085 166.862915,140 200,140 L240,140 C251.045695,140 260,131.045695 260,120 C260,108.954305 251.045695,100 240,100 L200,100 C188.954305,100 180,91.045695 180,80 C180,68.954305 188.954305,60 200,60 L240,60 L240,60" id="Path-6-Copy-7" stroke="#FBFBFB" stroke-width="38"></path>
+        </g>
+    </svg>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+	<div class='home'>
+		<header>
+			<h1>
+				<strong id="header">Marcel Schouwenaar</strong> 
+				<span id="subheader">is a designer &amp; researcher striving to make the world a better place with, or despite of, technology.</span>
+			</h1>
+			<div>
+				<p class=""><p>Currently open for projects</p>
+</p>
+			</div>
+			
+		</header>
+		<main>
+			<iframe name="mainframe" id="mainframe" src="./empty"></iframe>
+		</main>
+	</div>
+</body>
+</html>

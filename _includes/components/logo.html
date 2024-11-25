@@ -88,6 +88,10 @@
         const monogramPath = document.querySelector(".monogrampath");
         monogramPath.style.stroke = theme[1];
 
+        const body = document.querySelector("body");
+        body.style.setProperty("background-color", theme[0]);
+        body.style.backgroundColor = theme[0];
+
     }
 
     const logoReady = e =>{
