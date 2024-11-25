@@ -72,8 +72,6 @@ main iframe{
 	width: 100%;
 	overflow: hidden;
 	border: none;
-/*	background-color: rgba(0,0,0,0);
-	-webkit-backdrop-filter: blur(10px);*/
 }
 h1, h2, h3, h4{
 	font-family: "PPNeueBit";
@@ -86,7 +84,9 @@ h1, h2, h3, h4{
 h1	{ 
 	font-size: 72px; 
 	line-height: 40px; 
-	font-weight: normal
+	font-weight: normal;
+	transition: all 1s;
+	transition-delay: 1.5s;
 };
 h2	{ 
 	font-size: 64px; 

@@ -9,64 +9,21 @@
 	<link rel="stylesheet" type="text/css" href="{{ './style/font.css' | url }}">
 	<link rel="stylesheet" type="text/css" href="{{ './style/style.css' | url }}">
 
+	<script type="text/javascript" src="{{ './js/rndm.js' | url }}"></script>
+
 	<script type="text/javascript">
 
-		let originalSubheader = "";
-
-		const getRandomCharacter = e => {
-			const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@$%&+=*(){}[]|';
-			return characters.charAt(Math.floor(Math.random() * characters.length));
-		}
-		const replaceCharacter = (str, i, c) => {
-			const arr = str.split("");
-			arr[i] = c;
-			return arr.join("");
-		}
-		const removeCharacter = (str, i) => {
-			const arr = str.split("");
-			if(i > arr.length) return str;
-			arr.splice(i, 1);
-			return arr.join("");
-		}
-		const destroySubHeader = e => {
-
-			const subheader = document.querySelector("#subheader");
-			
-			let subheaderInnerHTML = subheader.innerHTML;
-
-			if(subheaderInnerHTML.length > 0){
-				setTimeout(destroySubHeader, 75);
-			} 	
-
-			let maxNumberOfChars = Math.min(10, subheaderInnerHTML.length);
-
-			//replace some characters
-			let r = Math.round(Math.random()*maxNumberOfChars); //chars to replace
-			for (let i = r - 1; i >= 0; i--) {
-				let index = Math.floor(Math.random()*subheaderInnerHTML.length); //chars to replace
-				subheaderInnerHTML = replaceCharacter(subheaderInnerHTML, index, getRandomCharacter());	
-			}
-			//delete some characters
-			let d = Math.round(Math.random()*maxNumberOfChars); //chars to delete
-			for (let i = d - 1; i >= 0; i--) {
-				let index = Math.floor(Math.random()*subheaderInnerHTML.length); //chars to replace
-				subheaderInnerHTML = removeCharacter(subheaderInnerHTML, index);
-			}
-			//inject the new subheader
-			subheader.innerHTML = subheaderInnerHTML;
-			
-		}
-		const restoreSubHeader = e => {
-			return subheader.innerHTML = originalSubheader;
-		}
+		let defaultSubtitle;
+		let subheaderRandomizer;
+		let headerRandomizer;
 
 		const docReady = e =>{
-			const header = document.querySelector("#header h1");
-			
-			const subheader = document.querySelector("#subheader");
-			originalSubheader = subheader.innerHTML;
+			let subheader = document.querySelector("#subheader");
+			let header = document.querySelector("#header");
 
-			header.addEventListener("click", e => destroySubHeader(originalSubheader));
+			defaultSubtitle = subheader.innerHTML;
+			subheaderRandomizer = new Randomizer(subheader, 20);
+			headerRandomizer = new Randomizer(header, 4);
 		}
 		
 		document.addEventListener("DOMContentLoaded",docReady);
@@ -77,10 +34,13 @@
 <body class='home'>
 	{% include 'components/nav.html' %}
 	{% include 'components/logo.html' %}
-	<header id="header">
-		<h1><strong>Marcel Schouwenaar</strong> <span id="subheader">is a designer & researcher striving to make the world a better place with, or despite of, technology.</span></h1>
+	<header>
+		<h1>
+			<strong id="header">{{ title }}</strong> 
+			<span id="subheader">{{ subheader }}</span>
+		</h1>
 		<div>
-			<p>Currently available for projects.</p>
+			<p class="">{{ content | safe }}</p>
 		</div>
 		
 	</header>

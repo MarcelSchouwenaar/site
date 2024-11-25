@@ -102,14 +102,23 @@
     
     navLinks.forEach(navLink => {
       navLink.addEventListener("click", e => {
-        
-        switchTheme();
-        destroySubHeader();
+
+        let link = e.target.href || e.target.closest('a').href;
+        let newHeader = e.target.dataset.pagetitle || e.target.closest('a').dataset.pagetitle;
+
+
+        headerRandomizer.setNewString(newHeader);
+
+        let page = link.split("/").pop() || "home";
+        if (page == "empty") {
+            subheaderRandomizer.setNewString()
+        } else {
+          subheaderRandomizer.setNewString(" ");
+        }
+        switchTheme(page);
 
       })
     })
-
-
 
 
   })
@@ -121,22 +130,33 @@
 
   #navigation{
     font-family: "PPNeuebit", _sansserif;
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    image-rendering: pixelated;
+    text-transform: uppercase;
+/*    font-smooth: never;*/
+/*    -webkit-font-smoothing : none;*/
     -webkit-user-select: none;
+   
     position: fixed;
     left: var(--xPos);
     top: var(--yPos);
     padding: 4px;
+    min-width: 220px;
+
+    
     background-color: var(--c-charcoal);
     color: var(--c-white);
     border: 1px solid var(--c-black);
     outline: 1px solid var(--c-charcoal);
     border-radius: 6px;
+   
     z-index: 999;
     box-shadow: 0px 5px 15px rgba(0,0,0,.2), 
                 inset 1px 1px 0px var(--c-poppy);
     transition: box-shadow .25s, transform .25s;
-    min-width: 220px;
+    
   }
   #navigation:hover{
     transform: translateY(-2px);
@@ -288,11 +308,11 @@
 
   </div>
   <div id="mainNavItems" class="insetFrame">
-    <a href="/"><span class="navItemIcon"><img src="{{ './images/i-home.svg' | url }}"></span>Home</a>
-    <a href="/about" target="mainframe"><span class="navItemIcon"><img src="{{ './images/i-about.svg' | url }}"></span>About</a>
-    <a href="/projects" target="mainframe"><span class="navItemIcon"><img src="{{ './images/i-projects.svg' | url }}"></span>Projects</a>
-    <a href="/writing" target="mainframe"><span class="navItemIcon"><img src="{{ './images/i-writing.svg' | url }}"></span>Writing</a>
-    <a href="/contact" target="mainframe"><span class="navItemIcon"><img src="{{ './images/i-contact.svg' | url }}"></span>Contact</a>
+    <a data-pagetitle="Marcel Schouwenaar" href="/empty" target="mainframe"><span class="navItemIcon"><img src="{{ './images/i-home.svg' | url }}"></span>Home</a>
+    <a data-pagetitle="About" href="/about" target="mainframe"><span class="navItemIcon"><img src="{{ './images/i-about.svg' | url }}"></span>About</a>
+    <a data-pagetitle="Projects" href="/projects" target="mainframe"><span class="navItemIcon"><img src="{{ './images/i-projects.svg' | url }}"></span>Projects</a>
+    <a data-pagetitle="Writing" href="/writing" target="mainframe"><span class="navItemIcon"><img src="{{ './images/i-writing.svg' | url }}"></span>Writing</a>
+    <a data-pagetitle="Contact" href="/contact" target="mainframe"><span class="navItemIcon"><img src="{{ './images/i-contact.svg' | url }}"></span>Contact</a>
   </div>
   <div id="secondaryNav" class="insetFrame">
         <span class="secondaryNavIcon buttonFrame"><img src="{{ './images/i-linkedin.svg' | url }}"> connect</span>

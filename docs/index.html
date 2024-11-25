@@ -9,64 +9,21 @@
 	<link rel="stylesheet" type="text/css" href="style/font.css">
 	<link rel="stylesheet" type="text/css" href="style/style.css">
 
+	<script type="text/javascript" src="js/rndm.js"></script>
+
 	<script type="text/javascript">
 
-		let originalSubheader = "";
-
-		const getRandomCharacter = e => {
-			const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@$%&+=*(){}[]|';
-			return characters.charAt(Math.floor(Math.random() * characters.length));
-		}
-		const replaceCharacter = (str, i, c) => {
-			const arr = str.split("");
-			arr[i] = c;
-			return arr.join("");
-		}
-		const removeCharacter = (str, i) => {
-			const arr = str.split("");
-			if(i > arr.length) return str;
-			arr.splice(i, 1);
-			return arr.join("");
-		}
-		const destroySubHeader = e => {
-
-			const subheader = document.querySelector("#subheader");
-			
-			let subheaderInnerHTML = subheader.innerHTML;
-
-			if(subheaderInnerHTML.length > 0){
-				setTimeout(destroySubHeader, 75);
-			} 	
-
-			let maxNumberOfChars = Math.min(10, subheaderInnerHTML.length);
-
-			//replace some characters
-			let r = Math.round(Math.random()*maxNumberOfChars); //chars to replace
-			for (let i = r - 1; i >= 0; i--) {
-				let index = Math.floor(Math.random()*subheaderInnerHTML.length); //chars to replace
-				subheaderInnerHTML = replaceCharacter(subheaderInnerHTML, index, getRandomCharacter());	
-			}
-			//delete some characters
-			let d = Math.round(Math.random()*maxNumberOfChars); //chars to delete
-			for (let i = d - 1; i >= 0; i--) {
-				let index = Math.floor(Math.random()*subheaderInnerHTML.length); //chars to replace
-				subheaderInnerHTML = removeCharacter(subheaderInnerHTML, index);
-			}
-			//inject the new subheader
-			subheader.innerHTML = subheaderInnerHTML;
-			
-		}
-		const restoreSubHeader = e => {
-			return subheader.innerHTML = originalSubheader;
-		}
+		let defaultSubtitle;
+		let subheaderRandomizer;
+		let headerRandomizer;
 
 		const docReady = e =>{
-			const header = document.querySelector("#header h1");
-			
-			const subheader = document.querySelector("#subheader");
-			originalSubheader = subheader.innerHTML;
+			let subheader = document.querySelector("#subheader");
+			let header = document.querySelector("#header");
 
-			header.addEventListener("click", e => destroySubHeader(originalSubheader));
+			defaultSubtitle = subheader.innerHTML;
+			subheaderRandomizer = new Randomizer(subheader, 20);
+			headerRandomizer = new Randomizer(header, 4);
 		}
 		
 		document.addEventListener("DOMContentLoaded",docReady);
@@ -179,14 +136,23 @@
     
     navLinks.forEach(navLink => {
       navLink.addEventListener("click", e => {
-        
-        switchTheme();
-        destroySubHeader();
+
+        let link = e.target.href || e.target.closest('a').href;
+        let newHeader = e.target.dataset.pagetitle || e.target.closest('a').dataset.pagetitle;
+
+
+        headerRandomizer.setNewString(newHeader);
+
+        let page = link.split("/").pop() || "home";
+        if (page == "empty") {
+            subheaderRandomizer.setNewString()
+        } else {
+          subheaderRandomizer.setNewString(" ");
+        }
+        switchTheme(page);
 
       })
     })
-
-
 
 
   })
@@ -198,22 +164,33 @@
 
   #navigation{
     font-family: "PPNeuebit", _sansserif;
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    image-rendering: pixelated;
+    text-transform: uppercase;
+/*    font-smooth: never;*/
+/*    -webkit-font-smoothing : none;*/
     -webkit-user-select: none;
+   
     position: fixed;
     left: var(--xPos);
     top: var(--yPos);
     padding: 4px;
+    min-width: 220px;
+
+    
     background-color: var(--c-charcoal);
     color: var(--c-white);
     border: 1px solid var(--c-black);
     outline: 1px solid var(--c-charcoal);
     border-radius: 6px;
+   
     z-index: 999;
     box-shadow: 0px 5px 15px rgba(0,0,0,.2), 
                 inset 1px 1px 0px var(--c-poppy);
     transition: box-shadow .25s, transform .25s;
-    min-width: 220px;
+    
   }
   #navigation:hover{
     transform: translateY(-2px);
@@ -365,11 +342,11 @@
 
   </div>
   <div id="mainNavItems" class="insetFrame">
-    <a href="/"><span class="navItemIcon"><img src="images/i-home.svg"></span>Home</a>
-    <a href="/about" target="mainframe"><span class="navItemIcon"><img src="images/i-about.svg"></span>About</a>
-    <a href="/projects" target="mainframe"><span class="navItemIcon"><img src="images/i-projects.svg"></span>Projects</a>
-    <a href="/writing" target="mainframe"><span class="navItemIcon"><img src="images/i-writing.svg"></span>Writing</a>
-    <a href="/contact" target="mainframe"><span class="navItemIcon"><img src="images/i-contact.svg"></span>Contact</a>
+    <a data-pagetitle="Marcel Schouwenaar" href="/empty" target="mainframe"><span class="navItemIcon"><img src="images/i-home.svg"></span>Home</a>
+    <a data-pagetitle="About" href="/about" target="mainframe"><span class="navItemIcon"><img src="images/i-about.svg"></span>About</a>
+    <a data-pagetitle="Projects" href="/projects" target="mainframe"><span class="navItemIcon"><img src="images/i-projects.svg"></span>Projects</a>
+    <a data-pagetitle="Writing" href="/writing" target="mainframe"><span class="navItemIcon"><img src="images/i-writing.svg"></span>Writing</a>
+    <a data-pagetitle="Contact" href="/contact" target="mainframe"><span class="navItemIcon"><img src="images/i-contact.svg"></span>Contact</a>
   </div>
   <div id="secondaryNav" class="insetFrame">
         <span class="secondaryNavIcon buttonFrame"><img src="images/i-linkedin.svg"> connect</span>
@@ -392,11 +369,14 @@
         padding: 20px;
         transition: background-color 2s;
         transition-delay: .5s;
+        font-smooth: never;
+        -webkit-font-smoothing : none;
+        image-rendering: pixelated;
+
     }
     #svglogo{
         width: 100%;
         height: 100%;
-        image-rendering: pixelated;
     }
     .monogrampath{
        stroke-dasharray: 200;
@@ -444,26 +424,29 @@
             --c-charcoal: #29282E;
             --c-black: #141319;
 
+
     */
 
-    const themes = [
-            ["var(--c-darkgreen)", "var(--c-green)"],
-            ["var(--c-orange)", "var(--c-coral)"],
-            ["var(--c-lilac)", "var(--c-cyan)"],
-            ["var(--c-purple)", "var(--c-yellow)"]
-        ]
+    const themes = {
+            "empty": ["var(--c-darkgreen)", "var(--c-green)"],
+            "about": ["var(--c-orange)", "var(--c-coral)"],
+            "projects": ["var(--c-black)", "var(--c-charcoal)"],
+            "writing": ["var(--c-white)", "var(--c-slate)"],
+            "contact": ["var(--c-purple)", "var(--c-pink)"]
+        }
     
     let currentTheme = 0;
 
-    const switchTheme = () => {
-        currentTheme = (currentTheme + 1)%themes.length;
-        
+    const switchTheme = (page) => {
+
+        let theme = themes[page] || themes[0];
+
         const heroContainer = document.getElementById("heroContainer");
-        heroContainer.style.setProperty("background-color", themes[currentTheme][0]);
+        heroContainer.style.setProperty("background-color", theme[0]);
 
         const monogramPath = document.querySelector(".monogrampath");
-        monogramPath.style.stroke = themes[currentTheme][1];
-        // monogramPath.setAttribute("stroke", themes[currentTheme][1]);
+        monogramPath.style.stroke = theme[1];
+
     }
 
     const logoReady = e =>{
@@ -471,19 +454,19 @@
         heroContainer.addEventListener("click",switchTheme);
     }
 
+
     document.addEventListener("DOMContentLoaded",logoReady);
 
 
 
 
 </script>
+
+
 <div id="heroContainer">
-    <?xml version="1.0" encoding="UTF-8"?>
     <svg id="svglogo"  viewBox="0 0 280 160" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <title>Marcel Schouwenaar Monogram</title>
-
-
-        <g id="monogram" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g filter="dither" id="monogram" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
             <path  shape-rendering="crispEdges" class="monogrampath" d="M20,100 L20,60 C20,48.954305 28.954305,40 40,40 C51.045695,40 60,48.954305 60,60 L60,100 C60,111.045695 68.954305,120 80,120 C91.045695,120 100,111.045695 100,100 L100,40 C100,28.954305 108.954305,20 120,20 C131.045695,20 140,28.954305 140,40 L140,80 C140,113.137085 166.862915,140 200,140 L240,140 C251.045695,140 260,131.045695 260,120 C260,108.954305 251.045695,100 240,100 L200,100 C188.954305,100 180,91.045695 180,80 C180,68.954305 188.954305,60 200,60 L240,60 L240,60" id="Path-6-Copy-7" stroke="#FBFBFB" stroke-width="38"></path>
         </g>
     </svg>
@@ -499,10 +482,14 @@
 
 
 
-	<header id="header">
-		<h1><strong>Marcel Schouwenaar</strong> <span id="subheader">is a designer & researcher striving to make the world a better place with, or despite of, technology.</span></h1>
+	<header>
+		<h1>
+			<strong id="header">Marcel Schouwenaar</strong> 
+			<span id="subheader">is a designer &amp; researcher striving to make the world a better place with, or despite of, technology.</span>
+		</h1>
 		<div>
-			<p>Currently available for projects.</p>
+			<p class=""><p>Currently open for projects</p>
+</p>
 		</div>
 		
 	</header>

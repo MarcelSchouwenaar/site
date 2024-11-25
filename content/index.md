@@ -1,12 +1,7 @@
 ---
 layout: layouts/index.html
+title: Marcel Schouwenaar
+subheader: is a designer & researcher striving to make the world a better place with, or despite of, technology.
 ---
 
-# Hello World
-
-This is a piece of text
-- a list item
-- another item
-- maybe even some more content
-
-<span>Hello, this is a span</span>
+Currently open for projects
