@@ -69,7 +69,7 @@
     */
 
     const themes = {
-            "empty": ["var(--c-darkgreen)", "var(--c-green)"],
+            "home": ["var(--c-darkgreen)", "var(--c-green)"],
             "about": ["var(--c-orange)", "var(--c-coral)"],
             "projects": ["var(--c-poppy)", "var(--c-black)"],
             "writing": ["var(--c-white)", "var(--c-slate)"],
@@ -78,7 +78,7 @@
     
     let currentTheme = 0;
 
-    const switchTheme = (page) => {
+    const switchTheme = page => {
 
         let theme = themes[page] || themes[0];
 

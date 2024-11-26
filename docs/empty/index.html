@@ -2,32 +2,22 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<title>Marcel Schouwenaar</title>
+	<meta http-equiv="refresh" content="1; url=/" />
+	<script type="text/javascript">
+		const loc = document.location;
+		const url = new URL(loc);
+		const page = url.pathname.replaceAll("/","");
+		const pageTitle = "Marcel Schouwenaar";
+
+		localStorage.setItem("page", page);
+		localStorage.setItem("pageTitle",pageTitle);
 	
-	<link rel="stylesheet" type="text/css" href="../style/reset.css">
-	<link rel="stylesheet" type="text/css" href="../style/font.css">
-	<link rel="stylesheet" type="text/css" href="../style/style.css">
-	<script>
-
-		function decryptEmail(encoded) {
-
-			var address = atob(encoded);
-			window.location.href = "mailto:" + address;
-
-		}
-
 	</script>
-	<style>
+	<style type="text/css">
 		body{
-			padding: 0;
-			margin: 0;
-			height: 100vh;
+			opacity: 0.1;
 		}
-		p, h1, h2, h3{
-			padding: 0;
-			margin: 0;
-		}
-
-	
 	</style>
 </head>
 <body>

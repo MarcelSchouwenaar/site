@@ -17,6 +17,11 @@
 		let subheaderRandomizer;
 		let headerRandomizer;
 
+		function decryptEmail(encoded) {
+			let address = atob(encoded);
+			window.location.href = "mailto:" + address;
+		}
+
 		const docReady = e =>{
 			let subheader = document.querySelector("#subheader");
 			let header = document.querySelector("#header");
@@ -171,48 +176,102 @@
       document.onmousemove = null;  
 
     }
+    const fetchPage = async link => {
+      const main = document.querySelector("main");
+      const response = await fetch(link);
+      const content = await response.text();
+      const parser = new DOMParser();
+      const html = parser.parseFromString(content, "text/html");
+      const body = html.querySelector("body").innerHTML;
+      main.innerHTML = body; 
+    }
+    const setHeader = pageTitle => {
+        headerRandomizer.setNewString(pageTitle);
+    }
+    const setSubHeader = page =>{
+       if (page == "home") {
+         subheaderRandomizer.setNewString()
+       } else {
+         subheaderRandomizer.setNewString(" ");
+       }
+    }
+    const parseEvent = e => {
+      
+      const target = (e.target.hasOwnProperty("href")) ? e.target : e.target.closest("a");      
+      const link = target.href;
+      const page = link.split("/").pop() || "home";
+      const pageTitle = target.dataset.pagetitle || "no title";
+      
+      return {
+        link: link,
+        page: page,
+        pageTitle: pageTitle,
+        eventType: e.type
+      }
+    }
+    const setLocation = (link, pageTitle) => {
+      history.pushState({pageTitle: pageTitle},"",link);
+    }
+    const setInitialRedirect = async e => {
+      if(localStorage.getItem("page") && localStorage.getItem("pageTitle")){
+        const page = localStorage.getItem("page");
+        const pageTitle = localStorage.getItem("pageTitle");
+        const link = `./${page}`;
+        const loc = {
+          link: link,
+          page: page,
+          pageTitle: pageTitle,
+          eventType: "redirect"
+        }
+        await navigate(loc);
+      }
+    }
+    const onPopState = async e => {
+      e.preventDefault();
+      const link = String(document.location);
+      console.log(link, link.split("/"), e);
+      const page = link.split("/").pop() || "home";
+      const pageTitle = e.state.pageTitle;   
 
+      const loc = {
+        link: link,
+        page: page,
+        pageTitle: pageTitle,
+        eventType: e.type
+      }
+
+      await navigate(loc);
+    }
+    const onNavLinkClick = async e => {
+      e.preventDefault();
+      const loc = parseEvent(e);
+      await navigate(loc);
+    }
+    const navigate = async loc => {
+      setSubHeader(loc.page)
+      setHeader(loc.pageTitle);
+      switchTheme(loc.page);
+      if(loc.eventType != "popstate") setLocation(loc.link, loc.pageTitle);
+      await fetchPage(loc.link);
+    }
 
     window.addEventListener('resize', setPosNavAfterEvent);
     window.addEventListener('resize', checkScreensize);
     window.addEventListener('storage',setPosNavAfterEvent);
+    window.addEventListener('popstate', onPopState);
 
     setInitialPos();
-    navHandle.onmousedown = startDragNav;
+    setInitialRedirect();
+    navHandle.addEventListener('mousedown', startDragNav);
 
     const mainNavItemsGroup = document.querySelector("#mainNavItems");
     const navLinks = mainNavItemsGroup.querySelectorAll("a");
     
     navLinks.forEach(navLink => {
-      navLink.addEventListener("click", async e => {
-
-        e.preventDefault();
-
-        let link = e.target.href || e.target.closest('a').href;
-        let newHeader = e.target.dataset.pagetitle || e.target.closest('a').dataset.pagetitle;
-
-        headerRandomizer.setNewString(newHeader);
-
-        let page = link.split("/").pop() || "home";
-        if (page == "empty") {
-          subheaderRandomizer.setNewString()
-        } else {
-          subheaderRandomizer.setNewString(" ");
-        }
-
-        const main = document.querySelector("main");
-        const response = await fetch(link);
-        const content = await response.text();
-        const parser = new DOMParser();
-        const html = parser.parseFromString(content, "text/html");
-        const body = html.querySelector("body").innerHTML;
-
-        main.innerHTML = body;
-        switchTheme(page);
-
-
-      })
+      navLink.addEventListener("click", onNavLinkClick);
     })
+
+
 
 
   })
@@ -508,7 +567,7 @@
     <img src="images/ms.svg">
   </div>
   <div id="mainNavItems" class="insetFrame">
-    <a data-pagetitle="Marcel Schouwenaar" href="./empty" target="mainframe">
+    <a data-pagetitle="Marcel Schouwenaar" href="./home" target="mainframe">
       <span class="navItemIcon"><img src="images/i-home.svg"></span>
       <span class="buttonLabel">Home</span>
     </a>
@@ -609,7 +668,7 @@
     */
 
     const themes = {
-            "empty": ["var(--c-darkgreen)", "var(--c-green)"],
+            "home": ["var(--c-darkgreen)", "var(--c-green)"],
             "about": ["var(--c-orange)", "var(--c-coral)"],
             "projects": ["var(--c-poppy)", "var(--c-black)"],
             "writing": ["var(--c-white)", "var(--c-slate)"],
@@ -618,7 +677,7 @@
     
     let currentTheme = 0;
 
-    const switchTheme = (page) => {
+    const switchTheme = page => {
 
         let theme = themes[page] || themes[0];
 
@@ -680,9 +739,6 @@
 			
 		</header>
 		<main>
-			<!-- <iframe name="mainframe" id="mainframe" src="./empty"></iframe> -->
-			
-
 		</main>
 	</div>
 </body>

@@ -2,13 +2,13 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>{{ title }}</title>
+	<title>Marcel Schouwenaar</title>
 	<meta http-equiv="refresh" content="1; url=/" />
 	<script type="text/javascript">
 		const loc = document.location;
 		const url = new URL(loc);
 		const page = url.pathname.replaceAll("/","");
-		const pageTitle = "{{ title }}";
+		const pageTitle = "Marcel Schouwenaar";
 
 		localStorage.setItem("page", page);
 		localStorage.setItem("pageTitle",pageTitle);
@@ -21,6 +21,6 @@
 	</style>
 </head>
 <body>
-	{{ content | safe }}
+	
 </body>
 </html>

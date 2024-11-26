@@ -17,6 +17,11 @@
 		let subheaderRandomizer;
 		let headerRandomizer;
 
+		function decryptEmail(encoded) {
+			let address = atob(encoded);
+			window.location.href = "mailto:" + address;
+		}
+
 		const docReady = e =>{
 			let subheader = document.querySelector("#subheader");
 			let header = document.querySelector("#header");
@@ -46,9 +51,6 @@
 			
 		</header>
 		<main>
-			<!-- <iframe name="mainframe" id="mainframe" src="./empty"></iframe> -->
-			
-
 		</main>
 	</div>
 </body>

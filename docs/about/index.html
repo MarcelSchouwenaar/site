@@ -2,36 +2,26 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<title>About</title>
+	<meta http-equiv="refresh" content="1; url=/" />
+	<script type="text/javascript">
+		const loc = document.location;
+		const url = new URL(loc);
+		const page = url.pathname.replaceAll("/","");
+		const pageTitle = "About";
+
+		localStorage.setItem("page", page);
+		localStorage.setItem("pageTitle",pageTitle);
 	
-	<link rel="stylesheet" type="text/css" href="../style/reset.css">
-	<link rel="stylesheet" type="text/css" href="../style/font.css">
-	<link rel="stylesheet" type="text/css" href="../style/style.css">
-	<script>
-
-		function decryptEmail(encoded) {
-
-			var address = atob(encoded);
-			window.location.href = "mailto:" + address;
-
-		}
-
 	</script>
-	<style>
+	<style type="text/css">
 		body{
-			padding: 0;
-			margin: 0;
-			height: 100vh;
+			opacity: 0;
 		}
-		p, h1, h2, h3{
-			padding: 0;
-			margin: 0;
-		}
-
-	
 	</style>
 </head>
 <body>
-	<h1>I help organizations figure out where things are going and how they can respond to change. I craft aspirational but viable paths forward by combining creativity, enquiry, and invention.</h1>
+	<h1>I help organizations figure out where their world is going and how they can respond to change. I craft aspirational but viable paths forward by combining creativity, enquiry, and invention.</h1>
 
 </body>
 </html>
