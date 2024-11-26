@@ -50,18 +50,21 @@ body{
 .home{
 	display: flex;
 	flex-direction: row;
-	position: fixed;
+	position: absolute;
 	left: 0;
 	top: 0;
 	width: 100vw;
-	height: 100vh;
+	min-height: 100vh;
+	overflow: visible;
 }
-
 
 header{
 	flex-grow: 1;
+	position: sticky;
+	top: 0;
 	display: flex;
 	width: 50vw;
+	height: 100vh;
 	justify-content: space-between;
 	flex-direction: column;
 	padding: var(--area-padding);
@@ -69,6 +72,7 @@ header{
 main {
 	width: 50vw;
 	flex-grow: 1;
+	padding: var(--area-padding);
 
 }
 main iframe{
@@ -115,11 +119,13 @@ a:hover{
 	}
   .home{
   	left: 0px;
-  	top: 100px;
-  	flex-direction: row;
-  	height: calc(100vh - 100px);
+  	top: 120px;
   }
-  header > div{
+  header{
+	top: 120px;
+/*	border: 1px solid blue;*/
+  }
+  footer{
   	display: none;
   }
   main{
@@ -137,8 +143,8 @@ a:hover{
   	height: calc(100vh - 80px);
   }
   h1{
-  	font-size: 64px;
-  	line-height: 54px;
+  	font-size: 56px;
+  	line-height: 44px;
   }
   header{
   	height: 60px;
@@ -150,7 +156,7 @@ a:hover{
   	flex-grow: 1;
   	width: 100%;
   }
-  header > div{
+  footer{
   	display: none;
   }
   .subheader{

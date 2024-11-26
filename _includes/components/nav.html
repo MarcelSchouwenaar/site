@@ -150,7 +150,9 @@
     const navLinks = mainNavItemsGroup.querySelectorAll("a");
     
     navLinks.forEach(navLink => {
-      navLink.addEventListener("click", e => {
+      navLink.addEventListener("click", async e => {
+
+        e.preventDefault();
 
         let link = e.target.href || e.target.closest('a').href;
         let newHeader = e.target.dataset.pagetitle || e.target.closest('a').dataset.pagetitle;
@@ -159,11 +161,21 @@
 
         let page = link.split("/").pop() || "home";
         if (page == "empty") {
-            subheaderRandomizer.setNewString()
+          subheaderRandomizer.setNewString()
         } else {
           subheaderRandomizer.setNewString(" ");
         }
+
+        const main = document.querySelector("main");
+        const response = await fetch(link);
+        const content = await response.text();
+        const parser = new DOMParser();
+        const html = parser.parseFromString(content, "text/html");
+        const body = html.querySelector("body").innerHTML;
+
+        main.innerHTML = body;
         switchTheme(page);
+
 
       })
     })
@@ -283,7 +295,7 @@
   }
   #navigation a:hover .navItemIcon{
     margin-left: 0;
-    margin-right: 4px;
+/*    margin-right: 4px;*/
     opacity: 1;
   }
   #navigation a:active{
@@ -379,7 +391,7 @@
     width: auto;
   }
   #secondaryNav div{
-    width: 50px;
+    width: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
